@@ -18,7 +18,7 @@ type ACTION_REQUEST_AVAILABLE_RESTAURANTS = typeof REQUEST_AVAILABLE_RESTAURANTS
 // action interfaces
 export interface SetAuthToken {
   type: ACTION_SET_AUTH_TOKEN;
-  token: string;
+  authToken: string;
 }
 
 export interface SetLoadingState {

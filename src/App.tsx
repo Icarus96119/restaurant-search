@@ -1,23 +1,22 @@
 import React, { useEffect } from 'react';
 import { Router, Route, Redirect, Switch } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import history from './history';
 import LogIn from './pages/login';
 import Dashboard from './pages/dashboard';
 import { selectAuthToken } from './redux/selectors';
+import { setAuthToken } from './redux/actions';
 import { azureContext } from './context/azure-authentication-context';
 
 function App() {
   const authToken = useSelector(selectAuthToken);
+  const dispatch = useDispatch();
   useEffect(() => {
-    // console.log(accountInfos);
-    // const accountInfos = azureContext.acquireToken();
-    // if (accountInfos.length) {
-    //   console.log(JSON.stringify(accountInfos));
-    // } else {
-    //   console.log('no accounts');
-    // }
+    azureContext.acquireToken().then((token: string) => {
+      console.log(token);
+      dispatch(setAuthToken(token));
+    });
   }, []);
   return (
     <Router history={history}>
@@ -29,7 +28,7 @@ function App() {
           <Dashboard />
         </Route>
         <Route exact path="/">
-          {authToken ? <Redirect to="/dashboard"/> : <LogIn azureContext={azureContext} />}
+          {authToken ? <Dashboard/> : <LogIn azureContext={azureContext} />}
         </Route>
       </Switch>
     </Router>

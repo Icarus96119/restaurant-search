@@ -1,4 +1,4 @@
-import { UserAgentApplication, Account } from 'msal';
+import { UserAgentApplication } from 'msal';
 
 import { MSAL_CONFIG } from '../environment';
 
@@ -9,6 +9,16 @@ export class AzureAuthenticationContext {
 
   login(): void {
     this.msalObject.loginRedirect(this.loginRequest);
+  }
+
+  acquireToken(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.msalObject.acquireTokenSilent(this.loginRequest)
+      .then(loginResponse => {
+        resolve(loginResponse.idToken.rawIdToken);
+      })
+      .catch(error => reject(error));
+    });
   }
 }
 
