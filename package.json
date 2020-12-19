@@ -18,6 +18,7 @@
     "@types/react-dom": "^16.9.10",
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.0",
+    "express": "^4.17.1",
     "history": "^5.0.0",
     "postcss": "^7.0.35",
     "react": "^17.0.1",
@@ -36,6 +37,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "start:prod": "node index.js",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
