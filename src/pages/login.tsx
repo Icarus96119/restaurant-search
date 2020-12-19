@@ -3,8 +3,7 @@ import MicrosoftLogin from 'react-microsoft-login';
 import { useDispatch } from 'react-redux';
 
 import { AZURE_ACTIVE_DIRECTORY_APP_CLIENT_ID } from '../environment';
-import { setAuthToken } from '../store/actions';
-
+import { setAuthToken } from '../redux/actions';
 
 export default function LogIn() {
   const dispatch = useDispatch();

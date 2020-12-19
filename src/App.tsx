@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import history from './history';
 import LogIn from './pages/login';
 import Dashboard from './pages/dashboard';
-import { selectAuthToken } from './store/selectors';
+import { selectAuthToken } from './redux/selectors';
 
 function App() {
   const authToken = useSelector(selectAuthToken);
