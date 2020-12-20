@@ -14,7 +14,6 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     azureContext.acquireToken().then((token: string) => {
-      console.log(token);
       dispatch(setAuthToken(token));
     });
   }, []);
