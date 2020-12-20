@@ -48,7 +48,7 @@ export class AzureAuthenticationContext {
           this.handleResponse(resp, setUser);
         })
         .catch((err) => {
-          console.error(err);
+          console.log(err);
         });
     } else if (signInType === "loginRedirect") {
       this.msalObject.loginRedirect(this.loginRedirectRequest);
