@@ -14,7 +14,7 @@ export interface GlobalState {
 }
 
 export const initialState: GlobalState = {
-  authToken: '11111',
+  authToken: '',
   loadingState: LoadingState.Loaded,
   restaurants: [],
 }
