@@ -7,7 +7,7 @@ import {
   PopupRequest,
 } from "@azure/msal-browser";
 
-import { MSAL_CONFIG } from '../environment';
+import { logInPopUp, loginRedirect, MSAL_CONFIG } from '../environment';
 
 export class AzureAuthenticationContext {
 
@@ -31,7 +31,7 @@ export class AzureAuthenticationContext {
   private setRequestObjects(): void {
     this.loginRequest = {
       scopes: [],
-      prompt: "select_account",
+      prompt: 'select_account',
     };
 
     this.loginRedirectRequest = {
@@ -41,7 +41,7 @@ export class AzureAuthenticationContext {
   }
 
   login(signInType: string, setUser: any): void {
-    if (signInType === "loginPopup") {
+    if (signInType === logInPopUp) {
       this.msalObject
         .loginPopup(this.loginRequest)
         .then((resp: AuthenticationResult) => {
@@ -50,7 +50,7 @@ export class AzureAuthenticationContext {
         .catch((err) => {
           console.log(err);
         });
-    } else if (signInType === "loginRedirect") {
+    } else if (signInType === loginRedirect) {
       this.msalObject.loginRedirect(this.loginRedirectRequest);
     }
   }
@@ -75,15 +75,15 @@ export class AzureAuthenticationContext {
   }
 
   private getAccount(): AccountInfo | undefined {
-    console.log(`loadAuthModule`);
+    console.log('loadAuthModule');
     const currentAccounts = this.msalObject.getAllAccounts();
     if (!currentAccounts) {
-      console.log("No accounts detected");
+      console.log('No accounts detected');
       return undefined;
     }
 
     if (currentAccounts.length > 1) {
-      console.log("Multiple accounts detected, need to add choose account code.");
+      console.log('Multiple accounts detected, need to add choose account code.');
       return currentAccounts[0];
     } else if (currentAccounts.length === 1) {
       return currentAccounts[0];
