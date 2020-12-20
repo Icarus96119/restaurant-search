@@ -1,19 +1,36 @@
 import React from 'react';
-import MicrosoftLogin from 'react-microsoft-login';
 import { useDispatch } from 'react-redux';
+import { AccountInfo } from "@azure/msal-browser";
+import Button from '@atlaskit/button';
 
-import { AZURE_ACTIVE_DIRECTORY_APP_CLIENT_ID, APP_REDIRECT_URI } from '../environment';
+import AzureAuthenticationContext from '../context/azure-authentication-context';
 import { setAuthToken } from '../redux/actions';
+import { logInPopUp, loginRedirect } from '../environment';
 
 export default function LogIn() {
+  const authenticationModule: AzureAuthenticationContext = new AzureAuthenticationContext();
   const dispatch = useDispatch();
-  const authCallback = (err: any, data: any) => {
-    alert('ok');
-    console.log(data);
-    dispatch(setAuthToken('1111-1111'));
-    // dispatch(setAuthToken(data.token));
+
+  const userAgent = window.navigator.userAgent;
+  const msie = userAgent.indexOf("MSIE ");
+  const msie11 = userAgent.indexOf("Trident/");
+  const isIE = msie > 0 || msie11 > 0;
+
+  const returnedAccountInfo = (user: AccountInfo) => {
+    // set state
+    if (user) {
+      dispatch(setAuthToken(user.homeAccountId));
+    }
   };
+
+  const logIn = (method: string): any => {
+    const logInType = isIE ? loginRedirect : logInPopUp;
+
+    // Azure Login
+    authenticationModule.login(logInType, returnedAccountInfo);
+  };
+
   return (<div className="h-screen flex justify-center items-center">
-    <MicrosoftLogin clientId={AZURE_ACTIVE_DIRECTORY_APP_CLIENT_ID} withUserData={true} redirectUri={APP_REDIRECT_URI} authCallback={authCallback}/>
+    <Button id="authenticationButton" onClick={() => logIn("loginPopup")}>Log in</Button>
   </div>);
 }
