@@ -14,13 +14,11 @@ export default function Dashboard() {
   const [keyword, setKeyword] = useState('');
 
   useEffect(() => {
-    const now = new Date();
-    dispatch(requestAvailableRestaurants('', now.toISOString()));
+    dispatch(requestAvailableRestaurants('', new Date().toISOString()));
   }, []);
 
   const onSearch = () => {
-    const now = new Date();
-    dispatch(requestAvailableRestaurants(keyword, now.toISOString()));
+    dispatch(requestAvailableRestaurants(keyword, new Date().toISOString()));
   };
 
   return (
@@ -33,9 +31,10 @@ export default function Dashboard() {
           <Button onClick={onSearch}>Search</Button>
         </div>
         {loadingState === LoadingState.Loaded ?
-        (<div className="w-full mt-6">
-          {restaurants.map((restaurant, index) => <RestaurantCard key={index} name={restaurant.name} openAt={restaurant.openAt} closesSoon={restaurant.closesSoon}/>)}
-        </div>) : (<div className="w-full items-center justify-center">Loading...</div>)}
+          (<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {restaurants.map((restaurant, index) => <div className="mb-4 px-4" key={index}><RestaurantCard name={restaurant.name} openAt={restaurant.openAt} closeAt={restaurant.closeAt} closesSoon={restaurant.closesSoon}/></div>)}
+          </div>) : (<div className="w-full items-center justify-center">Loading...</div>)
+        }
       </div>
     </div>);
 }

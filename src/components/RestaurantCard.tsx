@@ -13,7 +13,7 @@ export default function RestaurantCard(props: IProps) {
       <span>{props.openAt}</span>
     </div>
     <div className="flex mb">
-      <span className="font-medium">Clos.StrictModee At:&nbsp;</span>
+      <span className="font-medium">Close At:&nbsp;</span>
       <span>{props.closeAt}</span>
     </div>
     { props.closesSoon && <p className="mt-4 text-red-700">Closes Soon</p>}
