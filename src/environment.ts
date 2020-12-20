@@ -8,7 +8,7 @@ export const loginRedirect = 'loginRedirect';
 export const MSAL_CONFIG: IAzADConfig  =  {
   auth: {
       clientId: '468daba3-fdd8-4d18-937a-7fe5edf4e62d',
-      authority: 'https://login.microsoftonline.com/20093d99-aa75-47ce-8170-9cfe0c88b6b5',
+      authority: 'https://login.microsoftonline.com/common',
       redirectUri: "http://localhost:3000",
       graphScopes: ['openid', 'profile', 'User.Read']
   }

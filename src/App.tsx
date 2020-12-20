@@ -11,13 +11,13 @@ import { azureContext } from './context/azure-authentication-context';
 function App() {
   const authToken = useSelector(selectAuthToken);
   useEffect(() => {
-    const accountInfos = azureContext.acquireToken();
-    console.log(accountInfos);
-    if (accountInfos.length) {
-      console.log(JSON.stringify(accountInfos));
-    } else {
-      console.log('no accounts');
-    }
+    // console.log(accountInfos);
+    // const accountInfos = azureContext.acquireToken();
+    // if (accountInfos.length) {
+    //   console.log(JSON.stringify(accountInfos));
+    // } else {
+    //   console.log('no accounts');
+    // }
   }, []);
   return (
     <Router history={history}>

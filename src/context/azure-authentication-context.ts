@@ -1,40 +1,14 @@
-import { AccountInfo, PopupRequest, PublicClientApplication, RedirectRequest, } from "@azure/msal-browser";
+import { UserAgentApplication, Account } from 'msal';
 
 import { MSAL_CONFIG } from '../environment';
 
 export class AzureAuthenticationContext {
 
-  private msalObject = new PublicClientApplication(MSAL_CONFIG);
-  private loginRedirectRequest: RedirectRequest;
-  private loginRequest?: PopupRequest = { scopes: [], prompt: 'select_account'};;
-
-  public isAuthenticationConfigured = false;
-
-  constructor() {
-    this.setRequestObjects();
-    if (MSAL_CONFIG?.auth?.clientId) {
-      this.isAuthenticationConfigured = true;
-    }
-  }
-
-  acquireToken(): AccountInfo[] {
-    this.msalObject.acquireTokenSilent(this.loginRedirectRequest).then(loginResponse => {
-
-    });
-    return this.msalObject.getAllAccounts();
-  }
+  private msalObject = new UserAgentApplication(MSAL_CONFIG);
+  private loginRequest = { scopes: MSAL_CONFIG.auth.graphScopes };
 
   login(): void {
-    this.msalObject.loginRedirect(this.loginRedirectRequest);
-  }
-
-  private setRequestObjects(): void {
-    this.loginRequest = 
-
-    this.loginRedirectRequest = {
-      ...this.loginRequest,
-      redirectStartPage: window.location.href,
-    };
+    this.msalObject.loginRedirect(this.loginRequest);
   }
 }
 
